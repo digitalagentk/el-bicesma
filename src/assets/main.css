@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite reverse;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply overflow-x-hidden bg-white font-sans antialiased; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-teal-600 px-7 py-3 font-bold text-white shadow-lg shadow-teal-600/30 transition hover:-translate-y-0.5 hover:bg-teal-700 hover:shadow-xl active:translate-y-0;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-teal-600 px-7 py-3 font-bold text-teal-700 transition hover:-translate-y-0.5 hover:bg-teal-50;
+  }
+  .btn-white {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 font-bold text-teal-700 shadow-xl shadow-black/10 transition hover:-translate-y-0.5 hover:bg-teal-50;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/60 px-8 py-3.5 font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15;
+  }
+  .input-field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-800 outline-hidden transition placeholder:text-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-100;
+  }
+}
+
+/* ===== انتقالات الصفحات (الاسم يأتي من meta.transition في الـ Router) ===== */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.35s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+.slide-up-enter-active, .slide-up-leave-active { transition: opacity 0.35s ease, transform 0.35s ease; }
+.slide-up-enter-from { opacity: 0; transform: translateY(30px); }
+.slide-up-leave-to { opacity: 0; transform: translateY(-20px); }
+
+.zoom-enter-active, .zoom-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
+.zoom-enter-from, .zoom-leave-to { opacity: 0; transform: scale(0.96); }
+
+/* نافذة الشات */
+.chat-enter-active, .chat-leave-active { transition: opacity 0.25s ease, transform 0.25s ease; transform-origin: bottom right; }
+.chat-enter-from, .chat-leave-to { opacity: 0; transform: translateY(20px) scale(0.95); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
